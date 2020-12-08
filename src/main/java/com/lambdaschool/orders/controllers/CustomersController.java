@@ -2,6 +2,7 @@ package com.lambdaschool.orders.controllers;
 
 import com.lambdaschool.orders.models.Customer;
 import com.lambdaschool.orders.services.CustomerServices;
+import com.lambdaschool.orders.views.OrderCounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,5 +35,11 @@ public class CustomersController {
     public ResponseEntity<?> findCustomersByNameLike(@PathVariable String substring){
         List<Customer> myList = customerServices.findByNameLike(substring);
         return new ResponseEntity<>(myList, HttpStatus.OK);
+    }
+    // http://localhost:2019/customers/orders/count
+    @GetMapping(value = "/orders/count", produces = "application/json")
+    public ResponseEntity<?> findCustomerOrderCount(){
+        List<OrderCounts> rtnList = customerServices.findOrderCounts();
+        return new ResponseEntity<>(rtnList, HttpStatus.OK);
     }
 }
